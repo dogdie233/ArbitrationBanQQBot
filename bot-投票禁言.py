@@ -22,8 +22,8 @@ help_menber = '''!!禁言 @被仲裁的人 - 对被@的人发起仲裁禁言(要
 !!帮助 - 获得命令帮助'''
 help_menber_ver_English = '''!!ban <user> - '''
 help_admin = '''
-!!禁止使用投票禁言 @被禁用的人 - 禁止某人使用投票禁言功能
-!!允许使用投票禁言 @被允许的人 - 允许某人使用投票禁言功能
+!!禁止使用投票禁言 <@被禁用的人> - 禁止某人使用投票禁言功能
+!!允许使用投票禁言 <@被允许的人> - 允许某人使用投票禁言功能
 !!投票禁言黑名单列表 - 查看禁言黑名单列表'''
 help_owner = ''''''
 
@@ -170,6 +170,11 @@ class toupiao:
                 return
             if args[0] not in self.tasklist:
                 self.send_msg("[CQ:at,qq={0}]投票id不存在".format(info["user_id"]))
+                return
+            f = open("blacklist.json", "r", encoding="utf-8")
+            blacklist = json.load(f)
+            if str(info["user_id"]) in blacklist.keys():
+                self.send_msg("[CQ:at,qq={0}]你不能使用该功能, 理由:{1}, 执行人:{2}".format(info["user_id"], blacklist["user_id"]["reason"], blacklist["user_id"]["from"]))
                 return
             if args[1] == "0":
                 if info["sender"]["role"] == "owner" or info["sender"]["role"] == "admin":
