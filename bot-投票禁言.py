@@ -92,7 +92,7 @@ class toupiao:
     def updaterecode(self, info):
         needdel = []
         for k, v in self.msgrecode.items():
-            if time.time() > v + self.config["active_duration"]:  # 60s内没说话
+            if time.time() > v + self.config["active_duration"]:
                 needdel.append(k)
                 self.logger.debug(k + " 已经{0}s没说话了".format(self.config["active_duration"]))
         for a in needdel:
@@ -106,7 +106,7 @@ class toupiao:
             if time.time() > v.starttime + self.config["task_valid_duration"]:
                 needdel.append(k)
         for a in needdel:
-            del (self.msgrecode[a])
+            del (self.tasklist[a])
 
     def update_cooldown(self):
         needdel = []
@@ -114,7 +114,7 @@ class toupiao:
             if time.time() > v + 300:
                 needdel.append(k)
         for a in needdel:
-            del (self.msgrecode[a])
+            del (self.cooldown[a])
 
     def on_command(self, cmd, args, info):
         self.check_tasklist()
@@ -268,6 +268,7 @@ class toupiao:
             if info["sender"]["role"] == "owner":
                 msg += help_admin + help_owner
             self.send_msg(msg)
+
 
 @app.route('/api/message', methods=['POST'])
 def abaaba():
