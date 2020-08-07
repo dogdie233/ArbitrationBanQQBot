@@ -81,6 +81,8 @@ class toupiao:
         self.logger.debug("from " + str(info["group_id"]) + " by " + str(info["user_id"]) + ": " + info["message"])
         if str(info["group_id"]) != self.config["group_id"]:
             return
+        if info["group_id"] == 2854196306:
+            return
         if info["message"].startswith("!!") or info["message"].startswith("！！"):
             args = info["message"].split(" ")
             cmd = args[0][2:len(args[0])]  # 去除"!!"或"！！"
