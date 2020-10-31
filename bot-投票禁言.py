@@ -81,7 +81,7 @@ class toupiao:
         self.logger.debug("from " + str(info["group_id"]) + " by " + str(info["user_id"]) + ": " + info["message"])
         if str(info["group_id"]) != self.config["group_id"]:
             return
-        if info["group_id"] == 2854196306:
+        if info["user_id"] == 2854196306:
             return
         if info["message"].startswith("!!") or info["message"].startswith("！！"):
             args = info["message"].split(" ")
